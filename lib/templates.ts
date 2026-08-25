@@ -87,7 +87,7 @@ export function issueEmail(opts: {
   const footerHtml = `
     Amplify 850 &middot; ${escapeHtml(postalAddress())}<br />
     Sent to ${escapeHtml(opts.email)} because you subscribed at ${escapeHtml(siteUrl())}.<br />
-    <a href="${escapeHtml(opts.unsubscribeUrl)}" style="color:${BRAND.gold};">Unsubscribe</a> &mdash; one click, no login.
+    <a href="${escapeHtml(opts.unsubscribeUrl)}" style="color:${BRAND.gold};">Unsubscribe</a> &mdash; no login required.
   `;
   const html = shell({ preheader: opts.preheader, bodyHtml, footerHtml });
   const text = [

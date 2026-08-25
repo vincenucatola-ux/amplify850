@@ -47,7 +47,13 @@ async function handle() {
   for (const delivery of toSend) {
     touchedIssueIds.add(delivery.issue_id);
     const siteUrl = (process.env.SITE_URL ?? process.env.NEXT_PUBLIC_SITE_URL ?? "").replace(/\/$/, "");
-    const unsubscribeUrl = `${siteUrl}/api/newsletter/unsubscribe?token=${delivery.unsub_token}`;
+    // Two different URLs, deliberately: the visible link in the email body
+    // is a plain GET page (safe for mail scanners to pre-fetch — it doesn't
+    // unsubscribe anyone by itself), while the List-Unsubscribe header
+    // points mail clients' automated one-click POST at the API route that
+    // actually performs the unsubscribe.
+    const pageUnsubscribeUrl = `${siteUrl}/newsletter/unsubscribe?token=${delivery.unsub_token}`;
+    const apiUnsubscribeUrl = `${siteUrl}/api/newsletter/unsubscribe?token=${delivery.unsub_token}`;
 
     try {
       const { html, text } = issueEmail({
@@ -55,7 +61,7 @@ async function handle() {
         preheader: delivery.preheader ?? undefined,
         bodyMd: delivery.body_md,
         email: delivery.email,
-        unsubscribeUrl,
+        unsubscribeUrl: pageUnsubscribeUrl,
       });
 
       const result = await sendEmail({
@@ -64,7 +70,7 @@ async function handle() {
         html,
         text,
         headers: {
-          "List-Unsubscribe": `<${unsubscribeUrl}>`,
+          "List-Unsubscribe": `<${apiUnsubscribeUrl}>`,
           "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
         },
       });

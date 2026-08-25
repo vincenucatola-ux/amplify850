@@ -3,6 +3,8 @@ import { getSql } from "@/lib/db";
 
 export const dynamic = "force-dynamic";
 
+const ONE_CLICK_BODY = "List-Unsubscribe=One-Click";
+
 async function unsubscribeByToken(token: string | null): Promise<boolean> {
   if (!token) return false;
   const sql = getSql();
@@ -22,32 +24,48 @@ async function unsubscribeByToken(token: string | null): Promise<boolean> {
   return Boolean(already);
 }
 
-/** Manual click from the email body's "Unsubscribe" link. */
+/**
+ * GET must never mutate. Corporate mail scanners (Defender Safe Links,
+ * Proofpoint, Mimecast, etc.) pre-fetch every link in an email before it
+ * reaches the inbox — a GET that unsubscribes silently removes people who
+ * never clicked anything. This just forwards to the confirmation page,
+ * which is the only thing that renders on GET; the actual unsubscribe only
+ * happens from that page's POST.
+ */
 export async function GET(request: Request) {
-  try {
-    const token = new URL(request.url).searchParams.get("token");
-    const ok = await unsubscribeByToken(token);
-    return NextResponse.redirect(new URL(`/newsletter/unsubscribed?ok=${ok ? 1 : 0}`, request.url));
-  } catch (e) {
-    console.error("newsletter unsubscribe (GET): unhandled error", e);
-    return NextResponse.redirect(new URL("/newsletter/unsubscribed?ok=0", request.url));
-  }
+  const token = new URL(request.url).searchParams.get("token") ?? "";
+  return NextResponse.redirect(
+    new URL(`/newsletter/unsubscribe?token=${encodeURIComponent(token)}`, request.url),
+  );
 }
 
 /**
- * RFC 8058 one-click unsubscribe. Mail clients (Gmail, etc.) call this
- * automatically — with body `List-Unsubscribe=One-Click` — when a user taps
- * "Unsubscribe" in their own UI, and expect a fast 200 with no redirect and
- * no further confirmation step. Always 200 here, even on internal failure —
- * there's no UI watching this response, and a non-2xx just makes the mail
- * client retry into the same failure.
+ * The only thing that actually unsubscribes anyone. Two callers hit this:
+ *  1. RFC 8058 one-click — Gmail/Yahoo POST here automatically with body
+ *     exactly "List-Unsubscribe=One-Click" when a user taps their own
+ *     "Unsubscribe" UI. Must stay a fast 200, no redirect, no confirmation
+ *     step, and must succeed even if something upstream fails — a non-2xx
+ *     just makes the mail client retry into the same failure.
+ *  2. The confirmation page's own form submit (a real browser navigation),
+ *     which should land the person on a real result page, not a blank 200.
  */
 export async function POST(request: Request) {
+  const token = new URL(request.url).searchParams.get("token");
+  const rawBody = await request.text().catch(() => "");
+  const isOneClick = rawBody.trim() === ONE_CLICK_BODY;
+
+  let ok = false;
   try {
-    const token = new URL(request.url).searchParams.get("token");
-    await unsubscribeByToken(token);
+    ok = await unsubscribeByToken(token);
   } catch (e) {
     console.error("newsletter unsubscribe (POST): unhandled error", e);
   }
-  return new NextResponse(null, { status: 200 });
+
+  if (isOneClick) {
+    return new NextResponse(null, { status: 200 });
+  }
+
+  return NextResponse.redirect(new URL(`/newsletter/unsubscribed?ok=${ok ? 1 : 0}`, request.url), {
+    status: 303,
+  });
 }
