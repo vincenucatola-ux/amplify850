@@ -1,5 +1,6 @@
 import { hero, yearlyCause, events, donate } from "@/content";
 import { Button, SectionHead, Card, Tag } from "@/components/ui";
+import NewsletterForm from "@/components/NewsletterForm";
 
 export default function Home() {
   const nextEvent = events.find((e) => e.confirmed) ?? events[0];
@@ -105,6 +106,18 @@ export default function Home() {
               About Us
             </Button>
           </Card>
+        </div>
+      </section>
+
+      <section className="bg-cream-dark px-6 py-16">
+        <SectionHead eyebrow="Stay in the Loop" heading="The Newsletter" />
+        <div className="flex justify-center">
+          <NewsletterForm
+            variant="block"
+            source="home"
+            heading="The monthly from Amplify 850"
+            blurb="What we raised, what's next, and where the money actually went. Once a month, unsubscribe any time."
+          />
         </div>
       </section>
     </>

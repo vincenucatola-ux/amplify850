@@ -1,5 +1,6 @@
 import { events } from "@/content";
 import { SectionHead, Button, Tag } from "@/components/ui";
+import NewsletterForm from "@/components/NewsletterForm";
 
 function monthDay(dateLabel: string) {
   const match = dateLabel.match(/([A-Za-z]+)\s+(\d+)/);
@@ -53,6 +54,15 @@ export default function Events() {
       <div className="max-w-[720px] mx-auto mt-10 text-center bg-cream-dark border border-dashed border-tan rounded-lg py-5 px-6 text-[0.95rem]">
         Exact venues and full programs are still being finalized — check back
         or follow the Zeffy page for the latest ticket and schedule info.
+      </div>
+
+      <div className="mt-14 flex justify-center">
+        <NewsletterForm
+          variant="block"
+          source="events"
+          heading="Know before everyone else"
+          blurb="Conference dates, masterclass sign-ups, and chapter results. Once a month."
+        />
       </div>
     </section>
   );

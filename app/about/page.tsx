@@ -1,4 +1,4 @@
-import { mission, whatWeDo } from "@/content";
+import { mission, whatWeDo, community } from "@/content";
 import { SectionHead, Card } from "@/components/ui";
 
 export default function About() {
@@ -29,6 +29,23 @@ export default function About() {
                 {item.title}
               </h3>
               <p>{item.body}</p>
+            </Card>
+          ))}
+        </div>
+      </section>
+
+      <section className="px-6 py-16">
+        <SectionHead eyebrow={community.eyebrow} heading={community.heading} />
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-7 max-w-[1100px] mx-auto">
+          {community.items.map((t) => (
+            <Card key={t.name} className="flex flex-col">
+              <p className="font-display italic text-[1.1rem] text-maroon leading-snug mb-6 flex-1">
+                &ldquo;{t.quote}&rdquo;
+              </p>
+              <div className="text-sm border-t border-cream-dark pt-4">
+                <div className="font-semibold text-ink">{t.name}</div>
+                <div className="text-ink/60">{t.title}</div>
+              </div>
             </Card>
           ))}
         </div>

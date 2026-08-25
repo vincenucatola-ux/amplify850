@@ -1,0 +1,164 @@
+.root {
+  --_ink: var(--a850-ink, #2b1518);
+  --_accent: var(--a850-accent, #481f25);
+  --_line: var(--a850-line, #e5ddc9);
+  --_muted: var(--a850-muted, rgba(43, 21, 24, 0.6));
+  --_surface: var(--a850-surface, #f0ead9);
+
+  color: var(--_ink);
+  font-family: inherit;
+}
+
+/* --- footer variant: compact, single row --------------------------------- */
+
+.footer .row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.footer .input {
+  flex: 1 1 220px;
+}
+
+/* --- block variant: standalone panel -------------------------------------- */
+
+.block {
+  background: var(--_surface);
+  border-radius: 10px;
+  padding: 28px;
+  max-width: 480px;
+}
+
+.block .row {
+  display: block;
+  margin-bottom: 14px;
+}
+
+.block .input {
+  width: 100%;
+}
+
+.heading {
+  font-family: var(--font-display, Georgia, serif);
+  color: var(--_accent);
+  font-size: 1.3rem;
+  margin: 0 0 6px;
+}
+
+.blurb {
+  margin: 0 0 18px;
+  font-size: 0.95rem;
+}
+
+/* --- shared field styles ---------------------------------------------------- */
+
+.input,
+.select {
+  font: inherit;
+  font-size: 0.95rem;
+  padding: 10px 14px;
+  border: 1.5px solid var(--_line);
+  border-radius: 4px;
+  background: #fff;
+  color: var(--_ink);
+}
+
+.input:focus,
+.select:focus {
+  outline: 2px solid var(--_accent);
+  outline-offset: 1px;
+}
+
+.label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin: 4px 0 6px;
+}
+
+.select {
+  display: block;
+  width: 100%;
+  margin-bottom: 14px;
+}
+
+.button {
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 10px 20px;
+  background: var(--_accent);
+  color: var(--a850-btn-text, #f9f6ef);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+
+.button:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+.button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.block .button {
+  width: 100%;
+  padding: 12px 20px;
+}
+
+.check {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 0.85rem;
+  margin: 4px 0 16px;
+  cursor: pointer;
+}
+
+.check input {
+  margin-top: 3px;
+}
+
+.fine {
+  font-size: 0.78rem;
+  color: var(--_muted);
+  margin: 10px 0 0;
+  line-height: 1.5;
+}
+
+.error {
+  color: #a33;
+  font-size: 0.85rem;
+  margin: 10px 0 0;
+}
+
+.success {
+  font-family: var(--font-display, Georgia, serif);
+  color: var(--_accent);
+  font-size: 1.05rem;
+  margin: 0 0 6px;
+}
+
+/* --- honeypot: off-screen, never focusable, never announced ---------------- */
+
+.hp {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}

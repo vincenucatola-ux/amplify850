@@ -13,6 +13,18 @@
   --font-sans: var(--font-inter);
 }
 
+:root {
+  /* Aliases for third-party/self-contained components (e.g. NewsletterForm)
+     that ship their own CSS module and read brand colors via custom
+     properties instead of Tailwind classes. Keep these in sync with the
+     --color-* tokens in @theme above. */
+  --a850-ink: var(--color-ink);
+  --a850-accent: var(--color-maroon);
+  --a850-line: var(--color-cream-dark);
+  --a850-muted: color-mix(in srgb, var(--color-ink) 60%, transparent);
+  --a850-surface: var(--color-cream-dark);
+}
+
 body {
   background: var(--color-cream);
   color: var(--color-ink);
@@ -20,4 +32,47 @@ body {
 
 html {
   scroll-behavior: smooth;
+}
+
+.newsletter-body h1,
+.newsletter-body h2,
+.newsletter-body h3 {
+  font-family: var(--font-display);
+  color: var(--color-maroon);
+  margin: 1.5em 0 0.4em;
+}
+
+.newsletter-body p {
+  margin: 0 0 1em;
+  line-height: 1.7;
+}
+
+.newsletter-body ul {
+  margin: 0 0 1em;
+  padding-left: 1.25em;
+}
+
+.newsletter-body li {
+  margin-bottom: 0.4em;
+}
+
+.newsletter-body a {
+  color: var(--color-maroon);
+  text-decoration: underline;
+}
+
+.newsletter-body strong {
+  color: var(--color-ink);
+}
+
+/* NewsletterForm sitting on the dark maroon footer needs light ink and a
+   gold accent instead of the site-wide defaults (maroon-on-cream), or the
+   button disappears against the footer background. */
+.footer-newsletter {
+  --a850-ink: var(--color-cream);
+  --a850-accent: var(--color-gold);
+  --a850-btn-text: var(--color-maroon);
+  --a850-line: var(--color-maroon-light);
+  --a850-muted: color-mix(in srgb, var(--color-cream) 65%, transparent);
+  --a850-surface: var(--color-maroon-light);
 }

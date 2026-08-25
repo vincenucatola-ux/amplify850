@@ -84,6 +84,25 @@ export const whatWeDo = {
   ],
 };
 
+export const community = {
+  heading: "Words from Our Community",
+  eyebrow: "Endorsements",
+  items: [
+    {
+      name: "John E. Dailey",
+      title: "Mayor, City of Tallahassee",
+      quote:
+        "Tallahassee has always been a city that values education, creativity, and the potential of our young people. Investing in our students strengthens our entire community. I am pleased to offer my support for Amplify 850, a student-founded initiative bringing together Florida State University and Leon County Schools around a shared commitment to fine arts education.",
+    },
+    {
+      name: "Summer Callahan",
+      title: "Grants Manager, Council on Culture & Arts (COCA)",
+      quote:
+        "Amplify 850's event aligns with that goal exactly. Structured performance opportunities with credible adjudication are scarce for secondary students in this region outside of school-based assessment, and the conference's low participation cost and free spectator admission make it accessible to students who would otherwise be priced out of that experience.",
+    },
+  ],
+};
+
 export const benefit = {
   heading: "Where the Money Goes",
   body:
@@ -231,6 +250,7 @@ export const nav = [
   { label: "Events", href: "/events" },
   { label: "Join", href: "/join" },
   { label: "Donate", href: "/donate" },
+  { label: "Newsletter", href: "/newsletter" },
   { label: "Contact", href: "/contact" },
 ];
 

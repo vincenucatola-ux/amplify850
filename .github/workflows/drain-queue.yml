@@ -1,0 +1,19 @@
+name: Drain newsletter queue
+
+# Vercel's Hobby plan only runs cron once a day. This drains hourly for free
+# by hitting the same authenticated endpoint from GitHub Actions instead.
+# Requires two repo secrets: CRON_SECRET and SITE_URL.
+
+on:
+  schedule:
+    - cron: "0 * * * *"
+  workflow_dispatch: {}
+
+jobs:
+  drain:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call the drain endpoint
+        run: |
+          curl -sf -X GET "${{ secrets.SITE_URL }}/api/cron/drain" \
+            -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}"

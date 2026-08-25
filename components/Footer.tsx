@@ -1,4 +1,5 @@
 import { footer, contact } from "@/content";
+import NewsletterForm from "@/components/NewsletterForm";
 
 export default function Footer() {
   return (
@@ -11,6 +12,10 @@ export default function Footer() {
         <p className="text-sm opacity-85 my-1">{contact.email}</p>
       )}
       <p className="text-sm opacity-85 my-1">{footer.copyright}</p>
+
+      <div className="footer-newsletter max-w-[420px] mx-auto mt-6">
+        <NewsletterForm variant="footer" source="footer" />
+      </div>
     </footer>
   );
 }
