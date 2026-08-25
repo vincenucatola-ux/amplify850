@@ -22,7 +22,7 @@ function jsonError(message: string, status = 400) {
   return NextResponse.json({ ok: false, message }, { status });
 }
 
-export async function POST(request: Request) {
+async function handle(request: Request) {
   const sql = getSql();
   let body: Record<string, unknown>;
   try {
@@ -146,4 +146,17 @@ export async function POST(request: Request) {
   await sql`insert into events (subscriber_id, type, ip_hash) values (${subscriberId}, 'confirm_sent', ${ipHash})`;
 
   return NextResponse.json({ ok: true, message: "Check your inbox for a confirmation link." });
+}
+
+export async function POST(request: Request) {
+  try {
+    return await handle(request);
+  } catch (e) {
+    // Covers infrastructure that isn't configured yet (DATABASE_URL,
+    // IP_HASH_SALT, etc.) as well as genuine outages — either way, the
+    // visitor gets a clean message instead of a raw 500, and the real
+    // cause is still in the function logs for whoever's debugging it.
+    console.error("newsletter subscribe: unhandled error", e);
+    return jsonError("Something went wrong on our end. Try again in a few minutes.", 500);
+  }
 }

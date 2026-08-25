@@ -6,11 +6,7 @@ export const dynamic = "force-dynamic";
 
 const SLUG_RE = /^[a-z0-9]+(-[a-z0-9]+)*$/;
 
-export async function POST(request: Request) {
-  if (!isAuthorized(request, "ADMIN_SECRET")) {
-    return NextResponse.json({ error: "unauthorized" }, { status: 401 });
-  }
-
+async function handle(request: Request) {
   const sql = getSql();
   const body = (await request.json().catch(() => ({}))) as Record<string, unknown>;
 
@@ -57,4 +53,16 @@ export async function POST(request: Request) {
     values (${slug}, ${subject}, ${preheader}, ${bodyMd}, ${segments})
   `;
   return NextResponse.json({ status: "created" });
+}
+
+export async function POST(request: Request) {
+  if (!isAuthorized(request, "ADMIN_SECRET")) {
+    return NextResponse.json({ error: "unauthorized" }, { status: 401 });
+  }
+  try {
+    return await handle(request);
+  } catch (e) {
+    console.error("newsletter issues: unhandled error", e);
+    return NextResponse.json({ error: "internal_error" }, { status: 500 });
+  }
 }

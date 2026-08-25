@@ -22,11 +22,7 @@ async function countRecipients(issue: Issue): Promise<number> {
   return Number(count);
 }
 
-export async function POST(request: Request) {
-  if (!isAuthorized(request, "ADMIN_SECRET")) {
-    return NextResponse.json({ error: "unauthorized" }, { status: 401 });
-  }
-
+async function handle(request: Request) {
   const sql = getSql();
   const body = (await request.json().catch(() => ({}))) as Record<string, unknown>;
   const slug = typeof body.slug === "string" ? body.slug : "";
@@ -108,4 +104,16 @@ export async function POST(request: Request) {
     recipients,
     estimatedDays: Math.max(1, Math.ceil(recipients / DAILY_SEND_CAP)),
   });
+}
+
+export async function POST(request: Request) {
+  if (!isAuthorized(request, "ADMIN_SECRET")) {
+    return NextResponse.json({ error: "unauthorized" }, { status: 401 });
+  }
+  try {
+    return await handle(request);
+  } catch (e) {
+    console.error("newsletter send: unhandled error", e);
+    return NextResponse.json({ error: "internal_error" }, { status: 500 });
+  }
 }

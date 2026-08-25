@@ -70,18 +70,25 @@ export async function POST(request: Request) {
   // there's no reason to make it retry an event type we don't care about.
   if (!newStatus || !emailId) return NextResponse.json({ ok: true });
 
-  const sql = getSql();
-  const [delivery] = await sql<{ id: string; subscriber_id: string }[]>`
-    select id, subscriber_id from deliveries where provider_id = ${emailId}
-  `;
-  if (!delivery) return NextResponse.json({ ok: true, note: "unknown_delivery" });
+  try {
+    const sql = getSql();
+    const [delivery] = await sql<{ id: string; subscriber_id: string }[]>`
+      select id, subscriber_id from deliveries where provider_id = ${emailId}
+    `;
+    if (!delivery) return NextResponse.json({ ok: true, note: "unknown_delivery" });
 
-  await sql`update deliveries set status = ${newStatus} where id = ${delivery.id}`;
-  await sql`update subscribers set status = ${newStatus} where id = ${delivery.subscriber_id}`;
-  await sql`
-    insert into events (subscriber_id, type, meta)
-    values (${delivery.subscriber_id}, ${event.type === "email.bounced" ? "bounce" : "complaint"}, ${sql.json({ emailId })})
-  `;
+    await sql`update deliveries set status = ${newStatus} where id = ${delivery.id}`;
+    await sql`update subscribers set status = ${newStatus} where id = ${delivery.subscriber_id}`;
+    await sql`
+      insert into events (subscriber_id, type, meta)
+      values (${delivery.subscriber_id}, ${event.type === "email.bounced" ? "bounce" : "complaint"}, ${sql.json({ emailId })})
+    `;
 
-  return NextResponse.json({ ok: true });
+    return NextResponse.json({ ok: true });
+  } catch (e) {
+    // A genuine 500 here is correct, not a bug: Resend retries non-2xx
+    // responses, and a DB hiccup is exactly the kind of thing worth retrying.
+    console.error("newsletter webhook: unhandled error", e);
+    return NextResponse.json({ error: "internal_error" }, { status: 500 });
+  }
 }

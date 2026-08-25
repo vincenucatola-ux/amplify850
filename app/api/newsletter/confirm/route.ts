@@ -7,7 +7,7 @@ function redirectTo(request: Request, path: string) {
   return NextResponse.redirect(new URL(path, request.url));
 }
 
-export async function GET(request: Request) {
+async function handle(request: Request) {
   const sql = getSql();
   const token = new URL(request.url).searchParams.get("token");
   if (!token) return redirectTo(request, "/newsletter/confirmed?ok=0&reason=missing");
@@ -40,4 +40,13 @@ export async function GET(request: Request) {
   await sql`insert into events (subscriber_id, type) values (${subscriber.id}, 'confirm')`;
 
   return redirectTo(request, "/newsletter/confirmed?ok=1");
+}
+
+export async function GET(request: Request) {
+  try {
+    return await handle(request);
+  } catch (e) {
+    console.error("newsletter confirm: unhandled error", e);
+    return redirectTo(request, "/newsletter/confirmed?ok=0&reason=error");
+  }
 }

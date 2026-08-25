@@ -20,11 +20,7 @@ interface Delivery {
   body_md: string;
 }
 
-export async function GET(request: Request) {
-  if (!isAuthorized(request, "CRON_SECRET")) {
-    return NextResponse.json({ error: "unauthorized" }, { status: 401 });
-  }
-
+async function handle() {
   const sql = getSql();
 
   const batch = await sql<Delivery[]>`
@@ -105,4 +101,16 @@ export async function GET(request: Request) {
   `;
 
   return NextResponse.json({ processed: toSend.length, sent, failed, remaining: Number(remaining) });
+}
+
+export async function GET(request: Request) {
+  if (!isAuthorized(request, "CRON_SECRET")) {
+    return NextResponse.json({ error: "unauthorized" }, { status: 401 });
+  }
+  try {
+    return await handle();
+  } catch (e) {
+    console.error("newsletter cron drain: unhandled error", e);
+    return NextResponse.json({ error: "internal_error" }, { status: 500 });
+  }
 }

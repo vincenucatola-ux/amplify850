@@ -6,6 +6,7 @@ const REASONS: Record<string, string> = {
   invalid: "That confirmation link isn't valid — it may have already been used.",
   expired: "That confirmation link has expired. Sign up again and we'll send a fresh one.",
   missing: "That confirmation link is missing its token.",
+  error: "Something went wrong on our end confirming that. Try the link again in a few minutes.",
 };
 
 export default async function NewsletterConfirmed({

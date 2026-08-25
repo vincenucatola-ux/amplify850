@@ -34,13 +34,8 @@ export default async function NewsletterArchive() {
     <section className="px-6 py-16">
       <SectionHead eyebrow="Once a Month" heading="The Newsletter" />
 
-      <div className="max-w-[720px] mx-auto mb-14">
-        {issues.length === 0 ? (
-          <p className="text-center text-ink/60">
-            No issues sent yet — the first one lands after our next milestone. Subscribe below to
-            get it the day it goes out.
-          </p>
-        ) : (
+      {issues.length > 0 && (
+        <div className="max-w-[720px] mx-auto mb-14">
           <ul className="flex flex-col gap-4">
             {issues.map((issue) => (
               <li key={issue.slug}>
@@ -59,8 +54,8 @@ export default async function NewsletterArchive() {
               </li>
             ))}
           </ul>
-        )}
-      </div>
+        </div>
+      )}
 
       <div className="flex justify-center">
         <NewsletterForm
