@@ -194,20 +194,15 @@ export const events = [
 ];
 
 // ----------------------------------------------------------------------------
-// GET INVOLVED — membership interest forms (Google Forms)
+// GET INVOLVED — membership interest form (Google Form)
 // ----------------------------------------------------------------------------
 export const membershipForms = {
   heading: "Join Amplify 850",
-  intro: "Pick the form that matches you — we'll follow up from there.",
-  highSchool: {
-    title: "High School Membership Interest",
-    blurb: "For high school students who want to start or join a school chapter.",
-    url: "https://docs.google.com/forms/d/1TGappKN_Eisy0DUvfbUQbuTMXK12bH91X-u0rDkfThA/viewform",
-  },
-  college: {
-    title: "College Membership Interest",
-    blurb: "For FSU students who want to help lead and run Amplify 850.",
-    url: "https://docs.google.com/forms/d/12nqfjOvSUjNcQ12j98ld2zEb13RkfOnHRcnjmHfi1_Y/viewform",
+  intro: "Tell us a bit about yourself and we'll follow up from there.",
+  interestForm: {
+    title: "Membership Interest",
+    blurb: "For FSU students and Leon County high schoolers who want to get involved.",
+    url: "https://docs.google.com/forms/d/e/1FAIpQLSdIVAGto1y-fBQ2HXif-uTWpH6AiaP1p5ErL9BIozvZ_rukSg/viewform",
   },
 };
 

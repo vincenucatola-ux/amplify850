@@ -43,16 +43,11 @@ export default function Join() {
       <p className="text-center max-w-[600px] mx-auto mb-12 text-[1.05rem]">
         {membershipForms.intro}
       </p>
-      <div className="grid [grid-template-columns:repeat(auto-fit,minmax(320px,1fr))] gap-8 max-w-[1100px] mx-auto">
+      <div className="max-w-[640px] mx-auto">
         <FormEmbed
-          title={membershipForms.highSchool.title}
-          blurb={membershipForms.highSchool.blurb}
-          url={membershipForms.highSchool.url}
-        />
-        <FormEmbed
-          title={membershipForms.college.title}
-          blurb={membershipForms.college.blurb}
-          url={membershipForms.college.url}
+          title={membershipForms.interestForm.title}
+          blurb={membershipForms.interestForm.blurb}
+          url={membershipForms.interestForm.url}
         />
       </div>
     </section>
