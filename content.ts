@@ -57,10 +57,6 @@ export const yearlyCause = {
   heading: "Fine Arts & Music",
   quote:
     "Every dollar raised goes to Leon County and Florida State University fine arts programs.",
-  // TODO: confirm the real fundraising goal — the founding proposal cites an
-  // approximate per-chapter goal of $1,500/year; use the real org-wide total
-  // once it's locked in.
-  fundraisingGoal: "$1,500+ per chapter",
 };
 
 export const whatWeDo = {
@@ -144,14 +140,15 @@ export const compliance = {
 
 // ----------------------------------------------------------------------------
 // EVENTS
-// The Fine Arts & Music Conference in February is confirmed via the Zeffy
-// ticketing page, but the exact date is NOT locked in yet. Update
-// `confirmed: false` items once dates/venues are final.
+// Set `confirmed: false` on any event whose date or venue isn't final yet —
+// the Events page marks those "(tentative)".
 // ----------------------------------------------------------------------------
 export interface SiteEvent {
   slug: string;
   title: string;
   dateLabel: string;
+  /** YYYY-MM-DD. Events with this set also appear on the /calendar page. */
+  isoDate?: string;
   /** Optional time range, shown after the date on the Events page. */
   time?: string;
   location: string;
@@ -167,6 +164,7 @@ export const events: SiteEvent[] = [
     slug: "student-film-festival",
     title: "Student Film Festival",
     dateLabel: "Saturday, December 5, 2026",
+    isoDate: "2026-12-05",
     time: "12 PM – 3 PM",
     location: "Challenger Learning Center",
     confirmed: true,
@@ -176,9 +174,10 @@ export const events: SiteEvent[] = [
   {
     slug: "fine-arts-conference",
     title: "Fine Arts Conference — Grand Finale",
-    dateLabel: "February 2027 (exact date TBD)", // TODO: confirm exact date — not yet posted on Zeffy
-    location: "FSU Student Union, 222 S Copeland St, Tallahassee, FL 32306",
-    confirmed: false,
+    dateLabel: "Saturday, February 6, 2027",
+    isoDate: "2027-02-06",
+    location: "Oglesby Student Union, 75 N Woodward Ave, Tallahassee, FL 32306",
+    confirmed: true,
     description:
       "The countywide thespian, art, and music competition, judged by FSU faculty, with winners recognized on stage.",
     ticketUrl: "https://www.zeffy.com/en-US/ticketing/fsu-fine-arts-and-music-conference",
@@ -235,6 +234,7 @@ export const nav = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
   { label: "Events", href: "/events" },
+  { label: "Calendar", href: "/calendar" },
   { label: "Join", href: "/join" },
   { label: "Donate", href: "/donate" },
   { label: "Newsletter", href: "/newsletter" },

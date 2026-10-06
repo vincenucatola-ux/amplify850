@@ -57,6 +57,16 @@ export default function Events() {
         or follow the Zeffy page for the latest ticket and schedule info.
       </div>
 
+      <div className="max-w-[720px] mx-auto mt-8 text-center">
+        <p className="mb-3 text-[1.05rem]">
+          Looking for more? See school concerts, productions, and festivals happening across
+          Tallahassee this year.
+        </p>
+        <Button href="/calendar" variant="outline">
+          Youth Arts Calendar
+        </Button>
+      </div>
+
       <div className="mt-14 flex justify-center">
         <NewsletterForm
           variant="block"

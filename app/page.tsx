@@ -4,6 +4,7 @@ import NewsletterForm from "@/components/NewsletterForm";
 
 export default function Home() {
   const nextEvent = events.find((e) => e.confirmed) ?? events[0];
+  const generalDonate = donate.campaigns.find((c) => c.key === "general") ?? donate.campaigns[0];
 
   return (
     <>
@@ -40,14 +41,6 @@ export default function Home() {
                 {nextEvent.title}
               </span>
             </div>
-            <div>
-              <strong className="block font-display text-3xl text-maroon">
-                {yearlyCause.fundraisingGoal}
-              </strong>
-              <span className="text-sm text-ink uppercase tracking-wide">
-                Fundraising Goal
-              </span>
-            </div>
           </div>
         </div>
       </section>
@@ -55,11 +48,9 @@ export default function Home() {
       <section className="bg-cream-dark px-6 py-16">
         <SectionHead eyebrow="Support the Cause" heading="Ways to Give" />
         <div className="flex gap-4 justify-center flex-wrap max-w-[1100px] mx-auto">
-          {donate.campaigns.map((c) => (
-            <Button key={c.key} href={`/donate#${c.key}`} variant="outline">
-              {c.label}
-            </Button>
-          ))}
+          <Button href="/donate#general" variant="outline">
+            {generalDonate.label}
+          </Button>
         </div>
       </section>
 

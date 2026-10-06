@@ -20,9 +20,6 @@ export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: `${site.name} | FSU RSO`,
   description: site.shortTagline,
-  alternates: {
-    canonical: "/",
-  },
 };
 
 export default function RootLayout({
