@@ -144,43 +144,23 @@ export const compliance = {
 
 // ----------------------------------------------------------------------------
 // EVENTS
-// The fall Leadership Seminar series (masterclasses) all run at FSU's Moore
-// Auditorium and are free to attend, then everything culminates in the Fine
-// Arts & Music Conference in February — confirmed via the Zeffy ticketing
-// page, but the exact February date is NOT locked in yet. Update
+// The Fine Arts & Music Conference in February is confirmed via the Zeffy
+// ticketing page, but the exact date is NOT locked in yet. Update
 // `confirmed: false` items once dates/venues are final.
 // ----------------------------------------------------------------------------
-export const events = [
-  {
-    slug: "dance-leadership-seminar",
-    title: "Dance Leadership Seminar",
-    dateLabel: "Friday, October 2, 2026",
-    location: "FSU Moore Auditorium",
-    confirmed: true,
-    free: true,
-    description:
-      "The first of our fall Leadership Seminar masterclasses, featuring four special guest speakers sharing real-world insight into a career in dance.",
-  },
-  {
-    slug: "choral-leadership-seminar",
-    title: "Choral Leadership Seminar",
-    dateLabel: "Saturday, November 7, 2026",
-    location: "FSU Moore Auditorium",
-    confirmed: true,
-    free: true,
-    description:
-      "Held by the American Choral Directors Association, this masterclass brings expert choral insight directly to Leon County and FSU students.",
-  },
-  {
-    slug: "acting-leadership-seminar",
-    title: "Acting Leadership Seminar",
-    dateLabel: "Saturday, December 5, 2026",
-    location: "FSU Moore Auditorium",
-    confirmed: true,
-    free: true,
-    description:
-      "The final masterclass of the fall series, giving students a chance to learn from and network with experienced actors and educators.",
-  },
+export interface SiteEvent {
+  slug: string;
+  title: string;
+  dateLabel: string;
+  location: string;
+  confirmed: boolean;
+  description: string;
+  /** Shows a "Free" tag on the Events page. */
+  free?: boolean;
+  ticketUrl?: string;
+}
+
+export const events: SiteEvent[] = [
   {
     slug: "fine-arts-conference",
     title: "Fine Arts Conference — Grand Finale",
@@ -188,7 +168,7 @@ export const events = [
     location: "FSU Student Union, 222 S Copeland St, Tallahassee, FL 32306",
     confirmed: false,
     description:
-      "Everything the fall series builds toward: the countywide thespian, art, and music competition, judged by FSU faculty, with winners recognized on stage.",
+      "The countywide thespian, art, and music competition, judged by FSU faculty, with winners recognized on stage.",
     ticketUrl: "https://www.zeffy.com/en-US/ticketing/fsu-fine-arts-and-music-conference",
   },
 ];
