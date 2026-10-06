@@ -33,7 +33,8 @@ export default function Events() {
                   {event.title}
                 </h3>
                 <div className="text-sm text-gold font-semibold mb-2.5">
-                  {event.dateLabel} · {event.location}
+                  {event.dateLabel}
+                  {event.time && ` · ${event.time}`} · {event.location}
                   {!event.confirmed && (
                     <span className="ml-2 text-ink/60 font-normal italic">
                       (tentative)

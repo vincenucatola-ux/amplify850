@@ -152,6 +152,8 @@ export interface SiteEvent {
   slug: string;
   title: string;
   dateLabel: string;
+  /** Optional time range, shown after the date on the Events page. */
+  time?: string;
   location: string;
   confirmed: boolean;
   description: string;
@@ -161,6 +163,16 @@ export interface SiteEvent {
 }
 
 export const events: SiteEvent[] = [
+  {
+    slug: "student-film-festival",
+    title: "Student Film Festival",
+    dateLabel: "Saturday, December 5, 2026",
+    time: "12 PM – 3 PM",
+    location: "Challenger Learning Center",
+    confirmed: true,
+    description:
+      "A film festival built on student submissions, screening work from students across Leon County.",
+  },
   {
     slug: "fine-arts-conference",
     title: "Fine Arts Conference — Grand Finale",

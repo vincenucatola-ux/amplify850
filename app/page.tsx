@@ -85,8 +85,9 @@ export default function Home() {
               See What&rsquo;s Coming
             </h3>
             <p>
-              See the February Fine Arts &amp; Music Conference and how
-              we&rsquo;re bringing FSU and Leon County together.
+              See the December Student Film Festival and the February Fine
+              Arts &amp; Music Conference, and how we&rsquo;re bringing FSU and
+              Leon County together.
             </p>
             <Button href="/events" variant="outline" className="mt-2">
               View Events
