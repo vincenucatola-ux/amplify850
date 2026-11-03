@@ -31,7 +31,7 @@ export default async function NewsletterUnsubscribeConfirm({
       <div className="max-w-[480px] mx-auto">
         <h1 className="font-display text-maroon text-3xl mb-4">Unsubscribe from Amplify 850?</h1>
         <p className="text-[1.05rem] mb-8">
-          You'll stop getting the monthly newsletter. You can always subscribe again later.
+          You&rsquo;ll stop getting the monthly newsletter. You can always subscribe again later.
         </p>
         <form method="post" action={`/api/newsletter/unsubscribe?token=${encodeURIComponent(token)}`}>
           <button

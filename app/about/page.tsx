@@ -23,7 +23,11 @@ export default function About() {
           {whatWeDo.items.map((item, i) => (
             <Card
               key={item.title}
-              className={i === whatWeDo.items.length - 1 ? "sm:col-span-2" : ""}
+              className={
+                whatWeDo.items.length % 2 === 1 && i === whatWeDo.items.length - 1
+                  ? "sm:col-span-2"
+                  : ""
+              }
             >
               <h3 className="text-maroon mt-0 text-xl font-display">
                 {item.title}

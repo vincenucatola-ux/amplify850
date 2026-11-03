@@ -72,11 +72,6 @@ export const whatWeDo = {
       body:
         "The main chapter at FSU collaborates with other organizations and departments on campus to provide once-in-a-lifetime opportunities to learn from and network with FSU undergraduates, graduates, and professors who bring valuable, real-world insight to the table.",
     },
-    {
-      title: "Host a Spring Fine Arts and Music Conference",
-      body:
-        "The main FSU chapter will host a fine arts and music conference on Saturday, February 6th, 2027, at the Oglesby Student Union at Florida State University. The event is free for anyone to attend as a spectator, giving students the chance to watch, learn, and find inspiration from their peers. Performers can take part for $5 to compete with a group in general grading, or opt for a more rigorous $10 advanced adjudication track evaluated by graduate students, designed to closely mirror the assessment standards students encounter in school. The conference will showcase four disciplines: art, acting, choral performance, and dance, with them spanning multiple locations across the Union to give each discipline the space and atmosphere it deserves.",
-    },
   ],
 };
 
@@ -171,17 +166,6 @@ export const events: SiteEvent[] = [
     description:
       "A film festival built on student submissions, screening work from students across Leon County.",
   },
-  {
-    slug: "fine-arts-conference",
-    title: "Fine Arts Conference — Grand Finale",
-    dateLabel: "Saturday, February 6, 2027",
-    isoDate: "2027-02-06",
-    location: "Oglesby Student Union, 75 N Woodward Ave, Tallahassee, FL 32306",
-    confirmed: true,
-    description:
-      "The countywide thespian, art, and music competition, judged by FSU faculty, with winners recognized on stage.",
-    ticketUrl: "https://www.zeffy.com/en-US/ticketing/fsu-fine-arts-and-music-conference",
-  },
 ];
 
 // ----------------------------------------------------------------------------
@@ -220,12 +204,6 @@ export const donate = {
       label: "Sign Up For A Masterclass!",
       zeffyUrl: "https://www.zeffy.com/en-US/ticketing/annual-gala-5857",
       embedSrc: "https://www.zeffy.com/embed/ticketing/annual-gala-5857",
-    },
-    {
-      key: "conference",
-      label: "FSU Fine Arts & Music Conference",
-      zeffyUrl: "https://www.zeffy.com/en-US/ticketing/fsu-fine-arts-and-music-conference",
-      embedSrc: "https://www.zeffy.com/embed/ticketing/fsu-fine-arts-and-music-conference",
     },
   ],
 };

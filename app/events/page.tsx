@@ -72,7 +72,7 @@ export default function Events() {
           variant="block"
           source="events"
           heading="Know before everyone else"
-          blurb="Conference dates, masterclass sign-ups, and chapter results. Once a month."
+          blurb="Event dates, masterclass sign-ups, and chapter results. Once a month."
         />
       </div>
     </section>
